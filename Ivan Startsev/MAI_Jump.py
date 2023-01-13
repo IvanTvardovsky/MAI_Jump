@@ -213,7 +213,7 @@ class Monster(pygame.sprite.Sprite):
             self.v = -self.v
         if self.rect.y > 1000:
             self.kill()
-            PlatformCreator.GeneratePlatform(score, frequency)
+            GeneratePlatform.GeneratePlatform(score, frequency)
 
 
 class StandardPlatform(pygame.sprite.Sprite):
@@ -230,7 +230,7 @@ class StandardPlatform(pygame.sprite.Sprite):
     def update(self):
         if self.rect.y > 1000:
             self.kill()
-            PlatformCreator.GeneratePlatform(score, frequency)
+            GeneratePlatform.GeneratePlatform(score, frequency)
 
 
 class FragilePlatform(pygame.sprite.Sprite):
@@ -247,12 +247,12 @@ class FragilePlatform(pygame.sprite.Sprite):
     def update(self):
         if self.rect.y > 1000:
             self.kill()
-            PlatformCreator.GeneratePlatform(score, frequency)
+            GeneratePlatform.GeneratePlatform(score, frequency)
 
     def jump(self):
         self.kill()
         deadPlatformSprites.add(self)
-        PlatformCreator.GeneratePlatform(score, frequency)
+        GeneratePlatform.GeneratePlatform(score, frequency)
 
 
 class MovingPlatform(pygame.sprite.Sprite):
@@ -273,7 +273,7 @@ class MovingPlatform(pygame.sprite.Sprite):
             self.v = -self.v
         if self.rect.y > 1000:
             self.kill()
-            PlatformCreator.GeneratePlatform(score, frequency)
+            GeneratePlatform.GeneratePlatform(score, frequency)
 
 
 class BrokenPlatform(pygame.sprite.Sprite):
@@ -304,7 +304,7 @@ class BrokenPlatform(pygame.sprite.Sprite):
         self.v += self.gravity
         if self.rect.y > 1000:
             self.kill()
-            PlatformCreator.GeneratePlatform(score, frequency)
+            GeneratePlatform.GeneratePlatform(score, frequency)
 
 
 class BlackHole(pygame.sprite.Sprite):
@@ -321,7 +321,7 @@ class BlackHole(pygame.sprite.Sprite):
     def update(self):
         if self.rect.y > 800:
             self.kill()
-            PlatformCreator.GeneratePlatform(score, frequency)
+            GeneratePlatform.GeneratePlatform(score, frequency)
 
 
 class Camera:
@@ -406,7 +406,7 @@ def game():
     lastPlatform = StandardPlatform(300, 800)
     prev = StandardPlatform(300, 800)
     for i in range(30):
-        PlatformCreator.GeneratePlatform(score, frequency)
+        GeneratePlatform.GeneratePlatform(score, frequency)
     fon = pygame.image.load("data/background.png").convert()
     screen.blit(fon, (0, 0))
     clock = pygame.time.Clock()
