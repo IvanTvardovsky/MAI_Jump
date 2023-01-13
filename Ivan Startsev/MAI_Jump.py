@@ -29,7 +29,7 @@ def GetCreator(score, frequency):
                 return _moving_platform_creator
         elif percent <= 99 and score <=100:
             return _broken_platform_creator
-        elif percent >=99 and score > 100:
+        elif percent <=99 and score > 100:
             return _blackhole_creator
 
 def _fragile_platform_creator():
