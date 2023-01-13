@@ -15,7 +15,7 @@ class PlatformCreator:
         return creator()
 
 def GetCreator(score, frequency):
-    percent = randint(0, 100)
+    percent = randint(0, 99)
     if (score % (frequency * 1000) <
         (frequency * 1000 - 300) % (frequency * 1000) <
         (score + 1000) % (frequency * 1000) + 1000):
@@ -27,9 +27,9 @@ def GetCreator(score, frequency):
                 return _standard_platform_creator
         elif percent < 95:
                 return _moving_platform_creator
-        elif percent < 99:
+        elif percent <= 99 and score <=100:
             return _broken_platform_creator
-        elif percent == 99 and score > 100:
+        elif percent >=99 and score > 100:
             return _blackhole_creator
 
 def _fragile_platform_creator():
