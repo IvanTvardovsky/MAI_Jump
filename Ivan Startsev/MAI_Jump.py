@@ -14,7 +14,7 @@ class PlatformCreator:
         creator = GetCreator(score, frequency)
         return creator()
 
-def GetCreator(self, score, frequency):
+def GetCreator(score, frequency):
     percent = randint(0, 100)
     if (score % (frequency * 1000) <
         (frequency * 1000 - 300) % (frequency * 1000) <
