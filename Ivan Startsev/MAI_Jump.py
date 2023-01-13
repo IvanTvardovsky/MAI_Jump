@@ -13,53 +13,55 @@ class PlatformCreator:
     def GeneratePlatform(self, score, frequency):
         creator = self.GetCreator(score, frequency)
         return creator()
-    def GetCreator(self, score, frequency):
-        percent = randint(0, 100)
-        if (score % (frequency * 1000) <
-            (frequency * 1000 - 300) % (frequency * 1000) <
-            (score + 1000) % (frequency * 1000) + 1000):
-            return self._fragile_platform_creator
-        else:
-            if percent < 25 and score > 500:
-                    return self._monster_creator
-            if percent < 85:
-                    return self._standard_platform_creator
-            elif percent < 95:
-                    return self._moving_platform_creator
-            elif percent < 99:
-                return self._broken_platform_creator
-            elif percent == 99 and score > 100:
-                return self._blackhole_creator
-    def _fragile_platform_creator():
-        global lastPlatform
-        posx = randint(0, 500)
-        posy = lastPlatform.rect.y - 50
-        lastPlatform = FragilePlatform(posx, posy)
-    def _monster_creator():
-        global lastPlatform
-        posx = randint(0, 500)
-        posy = lastPlatform.rect.y - 50
-        lastPlatform = Monster(posx, posy)
-    def _moving_platform_creator():
-        global lastPlatform
-        posx = randint(10, 490)
-        posy = lastPlatform.rect.y - 50
-        lastPlatform =  MovingPlatform(posx, posy)
-    def _standard_platform_creator():
-        global lastPlatform
-        posx = randint(0, 500)
-        posy = lastPlatform.rect.y - 50
-        lastPlatform = StandardPlatform(posx, posy)
-    def _broken_platform_creator():
-        global lastPlatform
-        posx = randint(0, 500)
-        posy = lastPlatform.rect.y - 50
-        lastPlatform = BrokenPlatform(posx, posy)
-    def _blackhole_creator():
-        global lastPlatform
-        posx = randint(0,500)
-        posy = lastPlatform.rect.y - 50
-        lastPlatform = BlackHole(posx, posy)
+
+def GetCreator(self, score, frequency):
+    percent = randint(0, 100)
+    if (score % (frequency * 1000) <
+        (frequency * 1000 - 300) % (frequency * 1000) <
+        (score + 1000) % (frequency * 1000) + 1000):
+        return _fragile_platform_creator
+    else:
+        if percent < 25 and score > 500:
+                return _monster_creator
+        if percent < 85:
+                return _standard_platform_creator
+        elif percent < 95:
+                return _moving_platform_creator
+        elif percent < 99:
+            return _broken_platform_creator
+        elif percent == 99 and score > 100:
+            return _blackhole_creator
+
+def _fragile_platform_creator():
+    global lastPlatform
+    posx = randint(0, 500)
+    posy = lastPlatform.rect.y - 50
+    lastPlatform = FragilePlatform(posx, posy)
+def _monster_creator():
+    global lastPlatform
+    posx = randint(0, 500)
+    posy = lastPlatform.rect.y - 50
+    lastPlatform = Monster(posx, posy)
+def _moving_platform_creator():
+    global lastPlatform
+    posx = randint(10, 490)
+    posy = lastPlatform.rect.y - 50
+    lastPlatform =  MovingPlatform(posx, posy)
+def _standard_platform_creator():
+    global lastPlatform
+    posx = randint(0, 500)
+    posy = lastPlatform.rect.y - 50
+    lastPlatform = StandardPlatform(posx, posy)
+def _broken_platform_creator():
+    global lastPlatform
+    posx = randint(0, 500)
+    posy = lastPlatform.rect.y - 50
+    lastPlatform = BrokenPlatform(posx, posy)
+def _blackhole_creator():
+    global lastPlatform
+    posx = randint(0,500)
+    posy = lastPlatform.rect.y - 50
+    lastPlatform = BlackHole(posx, posy)
 GeneratePlatform = PlatformCreator()
 
 # def GeneratePlatform():
