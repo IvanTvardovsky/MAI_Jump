@@ -7,29 +7,81 @@ from pygame.locals import *
 pygame.mixer.init()
 pygame.init()
 pygame.display.set_caption('MAI Jump')
-
 score = 0
 frequency = randint(5, 10)
+class PlatformCreator:
+    def GeneratePlatform(self, score, frequency):
+        creator = GetCreator(score, frequency)
+        return creator()
 
-
-def GeneratePlatform():
-    global lastPlatform
-    percent = randint(0, 100)
+def GetCreator(score, frequency):
+    percent = randint(0, 99)
     if (score % (frequency * 1000) <
-            (frequency * 1000 - 300) % (frequency * 1000) <
-            (score + 1000) % (frequency * 1000) + 1000):
-        lastPlatform = FragilePlatform(randint(0, 500), lastPlatform.rect.y - 50)
+        (frequency * 1000 - 300) % (frequency * 1000) <
+        (score + 1000) % (frequency * 1000) + 1000):
+        return _fragile_platform_creator
     else:
-        if percent < 25 and score > 500:
-            lastPlatform = Monster(randint(0, 500), lastPlatform.rect.y - 50)
-        if percent < 85:
-            lastPlatform = StandardPlatform(randint(0, 500), lastPlatform.rect.y - 50)
-        elif percent < 95:
-            lastPlatform = MovingPlatform(randint(10, 490), lastPlatform.rect.y - 50)
-        elif percent < 99:
-            lastPlatform = BrokenPlatform(randint(0, 500), lastPlatform.rect.y - 50)
-        elif percent == 99 and score > 100:
-            lastPlatform = BlackHole(randint(0, 500), lastPlatform.rect.y - 50)
+        if percent < 3 and score > 500:
+                return _monster_creator
+        if percent < 80:
+                return _standard_platform_creator
+        elif percent < 90:
+                return _moving_platform_creator
+        elif percent <= 93 and score > 100:
+            return _blackhole_creator
+        else:
+            return _broken_platform_creator
+
+def _fragile_platform_creator():
+    global lastPlatform
+    posx = randint(0, 500)
+    posy = lastPlatform.rect.y - 50
+    lastPlatform = FragilePlatform(posx, posy)
+def _monster_creator():
+    global lastPlatform
+    posx = randint(0, 500)
+    posy = lastPlatform.rect.y - 50
+    lastPlatform = Monster(posx, posy)
+def _moving_platform_creator():
+    global lastPlatform
+    posx = randint(10, 490)
+    posy = lastPlatform.rect.y - 50
+    lastPlatform =  MovingPlatform(posx, posy)
+def _standard_platform_creator():
+    global lastPlatform
+    posx = randint(0, 500)
+    posy = lastPlatform.rect.y - 50
+    lastPlatform = StandardPlatform(posx, posy)
+def _broken_platform_creator():
+    global lastPlatform
+    posx = randint(0, 500)
+    posy = lastPlatform.rect.y - 50
+    lastPlatform = BrokenPlatform(posx, posy)
+def _blackhole_creator():
+    global lastPlatform
+    posx = randint(0,500)
+    posy = lastPlatform.rect.y - 50
+    lastPlatform = BlackHole(posx, posy)
+GeneratePlatform = PlatformCreator()
+
+# def GeneratePlatform():
+#     global lastPlatform
+#     percent = randint(0, 100)
+#     if (score % (frequency * 1000) <
+#             (frequency * 1000 - 300) % (frequency * 1000) <
+#             (score + 1000) % (frequency * 1000) + 1000):
+#         lastPlatform = FragilePlatform(randint(0, 500), lastPlatform.rect.y - 50)
+#     else:
+#         if percent < 25 and score > 500:
+#             lastPlatform = Monster(randint(0, 500), lastPlatform.rect.y - 50)
+#         if percent < 85:
+#             lastPlatform = StandardPlatform(randint(0, 500), lastPlatform.rect.y - 50)
+#         elif percent < 95:
+#             lastPlatform = MovingPlatform(randint(10, 490), lastPlatform.rect.y - 50)
+#         elif percent < 99:
+#             lastPlatform = BrokenPlatform(randint(0, 500), lastPlatform.rect.y - 50)
+#         elif percent == 99 and score > 100:
+#             lastPlatform = BlackHole(randint(0, 500), lastPlatform.rect.y - 50)
 
 
 def GameOver():
@@ -163,7 +215,7 @@ class Monster(pygame.sprite.Sprite):
             self.v = -self.v
         if self.rect.y > 1000:
             self.kill()
-            GeneratePlatform()
+            GeneratePlatform.GeneratePlatform(score, frequency)
 
 
 class StandardPlatform(pygame.sprite.Sprite):
@@ -180,7 +232,7 @@ class StandardPlatform(pygame.sprite.Sprite):
     def update(self):
         if self.rect.y > 1000:
             self.kill()
-            GeneratePlatform()
+            GeneratePlatform.GeneratePlatform(score, frequency)
 
 
 class FragilePlatform(pygame.sprite.Sprite):
@@ -197,12 +249,12 @@ class FragilePlatform(pygame.sprite.Sprite):
     def update(self):
         if self.rect.y > 1000:
             self.kill()
-            GeneratePlatform()
+            GeneratePlatform.GeneratePlatform(score, frequency)
 
     def jump(self):
         self.kill()
         deadPlatformSprites.add(self)
-        GeneratePlatform()
+        GeneratePlatform.GeneratePlatform(score, frequency)
 
 
 class MovingPlatform(pygame.sprite.Sprite):
@@ -223,7 +275,7 @@ class MovingPlatform(pygame.sprite.Sprite):
             self.v = -self.v
         if self.rect.y > 1000:
             self.kill()
-            GeneratePlatform()
+            GeneratePlatform.GeneratePlatform(score, frequency)
 
 
 class BrokenPlatform(pygame.sprite.Sprite):
@@ -254,7 +306,7 @@ class BrokenPlatform(pygame.sprite.Sprite):
         self.v += self.gravity
         if self.rect.y > 1000:
             self.kill()
-            GeneratePlatform()
+            GeneratePlatform.GeneratePlatform(score, frequency)
 
 
 class BlackHole(pygame.sprite.Sprite):
@@ -271,7 +323,7 @@ class BlackHole(pygame.sprite.Sprite):
     def update(self):
         if self.rect.y > 800:
             self.kill()
-            GeneratePlatform()
+            GeneratePlatform.GeneratePlatform(score, frequency)
 
 
 class Camera:
@@ -356,7 +408,7 @@ def game():
     lastPlatform = StandardPlatform(300, 800)
     prev = StandardPlatform(300, 800)
     for i in range(30):
-        GeneratePlatform()
+        GeneratePlatform.GeneratePlatform(score, frequency)
     fon = pygame.image.load("data/background.png").convert()
     screen.blit(fon, (0, 0))
     clock = pygame.time.Clock()
