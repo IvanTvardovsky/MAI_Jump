@@ -21,16 +21,16 @@ def GetCreator(score, frequency):
         (score + 1000) % (frequency * 1000) + 1000):
         return _fragile_platform_creator
     else:
-        if percent < 60 and score > 500:
+        if percent < 3 and score > 500:
                 return _monster_creator
-        if percent < 85:
+        if percent < 80:
                 return _standard_platform_creator
-        elif percent < 95:
+        elif percent < 90:
                 return _moving_platform_creator
-        elif percent <= 99 and score <=100:
-            return _broken_platform_creator
-        elif percent <=99 and score > 100:
+        elif percent <= 93 and score > 100:
             return _blackhole_creator
+        else:
+            return _broken_platform_creator
 
 def _fragile_platform_creator():
     global lastPlatform
