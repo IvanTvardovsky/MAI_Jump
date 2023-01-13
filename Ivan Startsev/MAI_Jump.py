@@ -11,7 +11,7 @@ score = 0
 frequency = randint(5, 10)
 class PlatformCreator:
     def GeneratePlatform(self, score, frequency):
-        creator = self.GetCreator(score, frequency)
+        creator = GetCreator(score, frequency)
         return creator()
 
 def GetCreator(self, score, frequency):
