@@ -21,7 +21,7 @@ def GetCreator(score, frequency):
         (score + 1000) % (frequency * 1000) + 1000):
         return _fragile_platform_creator
     else:
-        if percent < 25 and score > 500:
+        if percent < 60 and score > 500:
                 return _monster_creator
         if percent < 85:
                 return _standard_platform_creator
