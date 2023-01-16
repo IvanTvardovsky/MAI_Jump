@@ -20,4 +20,4 @@
 
 ## Для запуска игры откройте папку "Ivan Startsev" и запустите файл MAI_Jump.py
 
-![Иллюстрация к проекту]()
+![Иллюстрация к проекту](https://github.com/IvanTvardovsky/MAI_Jump/blob/main/Ivan%20Startsev/github_data/gameplay.jpg)
